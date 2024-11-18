@@ -7,7 +7,7 @@ import java.io.IOException;
 @Getter
 @Setter
 public class RequestHandler {
-    private final MediaType JSON = MediaType.get("application/json; charset=utf-8");
+    private final MediaType JSON = MediaType.get("application/json; charset=utf-8"); 
     private OkHttpClient client = new OkHttpClient();
 
     private String accessToken;
@@ -27,6 +27,7 @@ public class RequestHandler {
         }
     }
 
+    // Код стайл для тебя шутка? CheckToken - сheckToken; URL - url;
     public Response CheckToken(String URL) {
         Request request = new Request
                 .Builder()
@@ -55,7 +56,7 @@ public class RequestHandler {
             return response;
 
         }   catch (IOException e) {
-            throw new RuntimeException(e.getMessage());
+            throw new RuntimeException(e.getMessage()); 
         }
     }
 
