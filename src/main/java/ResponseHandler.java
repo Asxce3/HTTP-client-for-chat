@@ -1,20 +1,22 @@
 import okhttp3.Response;
 
 public class ResponseHandler {
-    private RequestHandler requestHandler;
+    private final Tokens tokens = new Tokens();
 
-    public ResponseHandler(RequestHandler requestHandler) {
-        this.requestHandler = requestHandler;
-    }
-
-    public void setTokens(Response response) {
+    public Tokens setTokens(Response response) {
         if (response.code() == 200) {
-            requestHandler.setAccessToken(response.header("accessToken"));
-            requestHandler.setRefreshToken(response.header("refreshToken"));
+            String accessToken = response.header("accessToken");
+            String refreshToken = response.header("refreshToken");
+
+            if (accessToken != null && refreshToken != null) {
+                tokens.setAccessToken(accessToken);
+                tokens.setRefreshToken(refreshToken);
+            }
+
         }   else {
             System.out.println("Произошла ошибка с кодом " + response.code());
         }
+        return tokens;
     }
-
 
 }

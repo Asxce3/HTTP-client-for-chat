@@ -8,6 +8,7 @@ import java.io.IOException;
 @Setter
 public class RequestHandler {
     private final MediaType JSON = MediaType.get("application/json; charset=utf-8");
+
     private OkHttpClient client = new OkHttpClient();
 
     private String accessToken;
@@ -27,10 +28,10 @@ public class RequestHandler {
         }
     }
 
-    public Response CheckToken(String URL) {
+    public Response checkToken(String url) {
         Request request = new Request
                 .Builder()
-                .url(URL)
+                .url(url)
                 .addHeader("accessToken", accessToken)
                 .addHeader("refreshToken", refreshToken)
                 .build();
@@ -43,10 +44,10 @@ public class RequestHandler {
         }
     }
 
-    public Response refreshTokens(String URL) {
+    public Response refreshTokens(String url) {
         Request request = new Request
                 .Builder()
-                .url(URL + "/refresh")
+                .url(url + "/refresh")
                 .addHeader("refreshToken", refreshToken)
                 .build();
 
@@ -58,6 +59,5 @@ public class RequestHandler {
             throw new RuntimeException(e.getMessage());
         }
     }
-
 
 }
