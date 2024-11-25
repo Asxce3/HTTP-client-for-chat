@@ -3,7 +3,7 @@ import okhttp3.Response;
 public class ResponseHandler {
     private final Tokens tokens = new Tokens();
 
-    public Tokens setTokens(Response response) {
+    public Tokens checkTokens(Response response) {
         if (response.code() == 200) {
             String accessToken = response.header("accessToken");
             String refreshToken = response.header("refreshToken");

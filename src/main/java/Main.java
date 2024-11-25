@@ -1,5 +1,5 @@
-import com.fasterxml.jackson.databind.ObjectMapper;
-import okhttp3.Response;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,10 +10,13 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class Main {
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
-    MainHandler mainHandler = new MainHandler();
-    mainHandler.run();
+        logger.info("App start");
+        MainHandler mainHandler = new MainHandler();
+        mainHandler.run();
+        logger.info("App finish!");
 
 //        while (true) {
 //            System.out.println("К кому обратиться ? ");
