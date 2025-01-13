@@ -1,3 +1,5 @@
+package Config;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -13,7 +15,7 @@ import java.util.Properties;
 @Setter
 @ToString
 public class Conf {
-    private final Logger logger = LoggerFactory.getLogger(Form.class);
+    private final Logger logger = LoggerFactory.getLogger(Conf.class);
 
     private final Properties props = new Properties();
     private static final String CONFIG_PATH = "src/main/resources/config.properties";
