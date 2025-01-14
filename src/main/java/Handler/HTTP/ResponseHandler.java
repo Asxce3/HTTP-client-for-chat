@@ -30,7 +30,7 @@ public class ResponseHandler {
         return tokens;
     }
 
-    public String getUserRooms(Response response) {
+    public String getResponseBody(Response response) {
         try {
             if (checkTokens(response).getAccessToken() != null && response.body() != null) {
                 ResponseBody responseBody = response.body();
@@ -58,5 +58,7 @@ public class ResponseHandler {
         response.close();
 
     }
+
+
 
 }

@@ -44,7 +44,7 @@ public class MainHandler {
             String userChooseUrl = conf.getProps().getProperty(userEndPoint);
 
             if(CommandMap.get(userEndPoint) != null && userChooseUrl != null) {
-                receiver.setHost(host + userChooseUrl);
+                receiver.setUrl(host + userChooseUrl);
                 CommandMap.get(userEndPoint).execute();
             }   else {
                 System.out.println("Такого вариант нет !");
@@ -65,8 +65,10 @@ public class MainHandler {
     private void initializationCommandMap(Receiver receiver) {
         Command getRooms = new CommandGetRooms(receiver);
         Command createCommand = new CommandCreateRoom(receiver);
+        Command showMessage = new CommandShowMessage(receiver);
         CommandMap.put("get_rooms", getRooms);
         CommandMap.put("post_rooms", createCommand);
+        CommandMap.put("current_room", showMessage);
     }
 }
 

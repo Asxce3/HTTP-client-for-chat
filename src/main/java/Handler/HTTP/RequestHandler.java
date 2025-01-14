@@ -91,4 +91,24 @@ public class RequestHandler {
         }
     }
 
+    public Response showMessage(String host) {
+
+        Request request = new Request.Builder()
+                .url(host)
+                .addHeader("accessToken", tokens.getAccessToken())
+                .addHeader("refreshToken", tokens.getRefreshToken())
+                .build();
+        try {
+            Response response = client.newCall(request).execute();
+            logger.info("Запрос на просмотр сообщения: " + response.code());
+            return response;
+
+        }   catch (IOException e) {
+            logger.error(e.getMessage());
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+
+
 }
