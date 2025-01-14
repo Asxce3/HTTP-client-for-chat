@@ -1,4 +1,0 @@
-2025-01-13 19:47:06 INFO  [main] Main - Приложение запущено!
-2025-01-13 19:47:06 INFO  [main] Config.Conf - Загрузка конфиг файла
-2025-01-13 19:47:06 INFO  [main] Handler.HTTP.InputData.NoAutoForm - Заполнение формы для авторизации
-2025-01-13 19:47:06 INFO  [main] Handler.HTTP.RequestHandler - Запрос на получение токенов с кодом : 200

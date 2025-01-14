@@ -1,5 +1,6 @@
 package Handler;
 
+import Command.*;
 import Config.Conf;
 import Handler.HTTP.InputData.InputUserData;
 import Handler.HTTP.InputData.NoAutoForm;
@@ -21,27 +22,51 @@ public class MainHandler {
     private final Scanner scanner = new Scanner(System.in);
 
     private final String host = conf.getProps().getProperty("host");
+    private final Map<String, Command> CommandMap = new HashMap<>();
 
     public void run() {
-        createTokens();
+        int codeTokens = createTokens();
+        if(codeTokens != 200 ) {
+            System.out.println("Не удалось полученить токены!");
+            return;
+        }
 
         while (true) {
 
             System.out.println(conf.getProps());
             System.out.println("К кому обратиться ?");
-            String clientChooseRoot = conf.getProps().getProperty(scanner.next());
 
-            if (clientChooseRoot == null) {
-                System.out.println("Такого варианта нет!");
+            String userEndPoint = scanner.next();
+
+            Receiver receiver = new Receiver(requestHandler, responseHandler, scanner);
+            initializationCommandMap(receiver);
+
+            String userChooseUrl = conf.getProps().getProperty(userEndPoint);
+
+            if(CommandMap.get(userEndPoint) != null && userChooseUrl != null) {
+                receiver.setHost(host + userChooseUrl);
+                CommandMap.get(userEndPoint).execute();
+            }   else {
+                System.out.println("Такого вариант нет !");
             }
-
         }
     }
-    private void createTokens() {
+    private int createTokens() {
         String JSON = form.setFormForAuth();
         Response response = requestHandler.auth(host, JSON);
-        Tokens tokens = responseHandler.checkTokens(response);
-        requestHandler.setTokens(tokens);
+        if(response.code() == 200) {
+            Tokens tokens = responseHandler.checkTokens(response);
+            requestHandler.setTokens(tokens);
+        }
+        return response.code();
+
+    }
+
+    private void initializationCommandMap(Receiver receiver) {
+        Command getRooms = new CommandGetRooms(receiver);
+        Command createCommand = new CommandCreateRoom(receiver);
+        CommandMap.put("get_rooms", getRooms);
+        CommandMap.put("post_rooms", createCommand);
     }
 }
 

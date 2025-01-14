@@ -30,7 +30,7 @@ public class ResponseHandler {
         return tokens;
     }
 
-    public String resRooms(Response response) {
+    public String getUserRooms(Response response) {
         try {
             if (checkTokens(response).getAccessToken() != null && response.body() != null) {
                 ResponseBody responseBody = response.body();
@@ -41,7 +41,6 @@ public class ResponseHandler {
         } catch (IOException e) {
             logger.error("Ошибка при получении списка Room");
             throw new RuntimeException(e.getMessage());
-//            Ручное закрыте объекта response
         } finally {
             response.close();
         }
@@ -51,6 +50,7 @@ public class ResponseHandler {
     public void createRoom(Response response) {
         int code = response.code();
         if (checkTokens(response).getAccessToken() != null && code == 200) {
+            System.out.println("Комната успешно создана");
             logger.info("Response код по создание комнаты: {}", response.code());
         }   else {
             logger.error("Произошла ошибка при создании комнаты с кодом: {}", code);

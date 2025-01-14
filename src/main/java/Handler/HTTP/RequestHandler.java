@@ -62,7 +62,6 @@ public class RequestHandler {
                 .addHeader("refreshToken", tokens.getRefreshToken())
                 .build();
 
-//        Отмена try-with-resources
         try {
             Response response = client.newCall(request).execute();
             logger.info("Запрос на получение списка Room : {}", response.code());
